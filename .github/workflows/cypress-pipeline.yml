@@ -1,30 +1,32 @@
-# nome da pipeline
-name: Run Basic Cypress Testes
+# .github/workflows/cypress-pipeline.yml
+name: Run Basic Cypress Tests
 
-#em que momento ela será executada
-on: 
-    pull_request:
-        branches: [master]
+# Em que momento será executada
+on:
+  pull_request:
+    branches: [master]
 
-#jobs
+# jobs que irao rodar na pipeline
+# só temos um que vai rodar os testes do cypress
 jobs:
-    #o que vai ser feito nessa pipe
-    # só temo s um que vai rodar os testes do cypress
-    cypress-run:
-        #maquina que irá rodar a pipeline
-        runs-on: ubuntu-latest
-        #passos que serão executados
-        steps:
-            #clone do projeto
-            -name: checkout/clone do projeto
-            uses: actions/checkout@v6
-            #exemplo de execução no terminal
-           # -name: Run testes
-            #uses: cypress-io/github-action@v7
-            -name: instalar dependências
-            run: echo Mateus 
-           # execução e configuração do projeto
-            with:
-                record: true
-            env:
-                    CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+  cypress-run:
+    # maquina que ira rodar a pipeline
+    runs-on: ubuntu-latest
+
+    # Passos que serao executados
+    steps:
+      # clone do projeto
+      - name: checkout/clone do projeto
+        uses: actions/checkout@v4
+
+      # exemplo de execução no terminal
+      - name: instalar dependências do projeto
+        run: echo Mateus
+
+      # execução e configuraçao do projeto
+      - name: Run testes
+        uses: cypress-io/github-action@v6
+        with:
+          record: true
+        env:
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
